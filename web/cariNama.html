@@ -94,7 +94,6 @@
                             <script>
                                 function loadDoc() {
                                     var xmlhttp = new XMLHttpRequest();
-
                                     var url = "http://206.189.38.188:8080/myrs/webresources/pasien/cariNamaPasien?nama=" + nik.value;
                                     xmlhttp.onreadystatechange = function () {
                                         if (this.readyState == 4 && this.status == 200) {
@@ -107,7 +106,7 @@
                                         var arr = JSON.parse(response);
                                         var i;
                                         var out = "<table><tr><th>NIK</th><th>NAMA</th><th>TANGGAL LAHIR</th><th>DETAIL</th></tr>";
-
+                                        var detail = "detail";
                                         for (i = 0; i < arr.length; i++) {
                                             out += "<tr><td>" +
                                                     arr[i].noRm +
@@ -115,9 +114,7 @@
                                                     arr[i].nama +
                                                     "</td><td>" +
                                                     arr[i].tanggalLahir +
-                                                    "</td><td>" +
-                                                    "detail;"
-
+                                                    "</td><td><button type=\"submit\" onclick=\"myFunction1('" + arr[i].nik + "')\">Pesan</button></td></tr>";
                                         }
                                         out += "</table>";
                                         document.getElementById("id01").innerHTML = out;
