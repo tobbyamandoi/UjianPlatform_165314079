@@ -41,7 +41,7 @@
         <script src="js/typewriter.js"></script>
         <script src="js/jquery.onepagenav.js"></script>
         <script src="js/main.js"></script>
-        
+
     </head>
 
     <body>
@@ -116,12 +116,22 @@
                                                     "</td><td>" +
                                                     arr[i].tanggalLahir +
                                                     "</td><td>" +
-                                                    "detail";
+                                                    "detail;"
 
                                         }
                                         out += "</table>";
                                         document.getElementById("id01").innerHTML = out;
                                     }
+                                }
+                                function myFunction1(nik) {
+                                    var myWindow = window.open("detilPasien.html");
+                                    setCookie("username", nik, 1);
+                                }
+                                function setCookie(cname, cvalue, exdays) {
+                                    var d = new Date();
+                                    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+                                    var expires = "expires=" + d.toUTCString();
+                                    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
                                 }
                             </script>
                         </div>
