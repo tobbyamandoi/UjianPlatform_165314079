@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" id="home">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Rumah Sakit</title>
+        <meta name="description" content="RS Merah Putih merupakan rumah sakit Nasional" />
+        <meta name="keywords" content="rumah sakit, rs, merah putih, merah, putih, sakit" />
+        <meta name="author" content="Muliana_ketut 165314065" />
+        <!-- Favicons (created with http://realfavicongenerator.net/)-->
+        <link rel="apple-touch-icon" sizes="76x76" href="img/favicons/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="img/favicons/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="img/favicons/favicon-16x16.png">
+        <link rel="manifest" href="img/favicons/site.webmanifest">
+        <link rel="mask-icon" href="img/favicons/safari-pinned-tab.svg" color="#5bbad5">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="theme-color" content="#ffffff">
+        <link rel="shortcut icon" href="img/favicons/favicon.ico">
+        <meta name="msapplication-config" content="img/favicons/browserconfig.xml">
+        <!-- Normalize -->
+        <link rel="stylesheet" type="text/css" href="css/normalize.css">
+        <!-- Bootstrap -->
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+        <!-- Owl -->
+        <link rel="stylesheet" type="text/css" href="css/owl.css">
+        <!-- Animate.css -->
+        <link rel="stylesheet" type="text/css" href="css/animate.css">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.1.0/css/font-awesome.min.css">
+        <!-- Elegant Icons -->
+        <link rel="stylesheet" type="text/css" href="fonts/eleganticons/et-icons.css">
+        <!-- Main style -->
+        <link rel="stylesheet" type="text/css" href="css/cardio.css">
+        <!-- Scripts -->
+        <script src="js/jquery-1.11.1.min.js"></script>
+        <script src="js/owl.carousel.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/wow.min.js"></script>
+        <script src="js/typewriter.js"></script>
+        <script src="js/jquery.onepagenav.js"></script>
+        <script src="js/main.js"></script>
+
+    </head>
+
+    <body>
+        <div class="preloader">
+            <img src="img/loader.gif" alt="Preloader image">
+        </div>
+
+        <header id="intro">
+            <div class="container">             
+                <div class="table">
+                    <div class="header-text">
+                    </div>
+                </div>
+            </div>
+        </header>
+        <nav class="navbar navbar-static-top">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#home"><img src="img/logo.png" data-active-url="img/logo.png" alt=""></a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">                   
+                    <ul class="nav navbar-nav navbar-right main-nav">
+                        <li><a class="active" href="index.html">Home</a></li>
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pasien</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="daftarPasien.html">Daftar Pasien</a></li>
+                                <li><a href="cariNama.html">Cari Pasien</a></li>                           
+                            </ul>
+                        </li> 
+                        <div class="contact-form">
+                            <center><table>
+                                    <tr><td>Masukkan Nama Pasien</td> <td>:</td> <td><input type="text" onchange="loadDoc()" id="nama"/> <button type="button" onclick="loadDoc()" id="btn">Cari</button></td></tr>
+                                </table></center>
+
+                            <br/><br/><br/><center><h3>Data Hasil Pencarian</h3></center><br/>
+                            <center><table>
+                                    <tr><td>NIK</td> <td>:</td> <td><input type="text" id="nik" value="" disabled=""/></td>
+                                    <tr><td>Nama</td> <td>:</td> <td><input type="text" id="nama" value="" disabled=""/></td>
+                                    <tr><td>Tanggal Lahir</td> <td>:</td> <td><input type="text" id="tanggalLahir" value="" disabled=""/></td></tr>
+
+
+                                </table></center>
+                            <center><button type="button" onclick="loadDoc()" id="btn">Detail Pasien</button></center>    
+                            <br>
+                            <script>
+                                function loadDoc() {
+                                    var url = "http://206.189.38.188:8080/myrs/webresources/pasien/cariNamaPasien?nama=" + nama.value;
+                                    //var url = "http://202.94.83.190:8080/servicesRS165314065/webresources/pasien/cariPasien?noRm=" + noRm.value;
+                                    var xhttp = new XMLHttpRequest();
+                                    xhttp.open("GET", url, true);
+                                    xhttp.send();
+                                    xhttp.onreadystatechange = function () {
+                                        if (this.readyState == 4 && this.status == 200) {
+                                            var objj = JSON.parse(this.responseText);
+                                            document.getElementById("nama").value = objj.nama;
+                                            document.getElementById("nik").value = objj.nik;
+                                            document.getElementById("alamat").value = objj.alamat;
+                                            document.getElementById("tanggalLahir").value = objj.tanggalLahir;
+                                            document.getElementById("kelamin").value = objj.kelamin;
+                                        }
+                                    };
+                                }
+                            </script>
+                        </div>
+
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+
+
+        <!-- Holder for mobile navigation -->
+        <div class="mobile-nav">
+            <ul>
+            </ul>
+            <a href="#" class="close-link"><i class="arrow_up"></i></a>
+        </div>
+    </body>
+</html>
