@@ -41,7 +41,7 @@
         <script src="js/typewriter.js"></script>
         <script src="js/jquery.onepagenav.js"></script>
         <script src="js/main.js"></script>
-
+        
     </head>
 
     <body>
@@ -73,47 +73,55 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">                   
                     <ul class="nav navbar-nav navbar-right main-nav">
-                        <li><a class="active" href="index.html">Home</a></li>
+                        <li><a href="index.html">Home</a></li>
 
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pasien</a>
                             <ul class="dropdown-menu">
-                                <li><a href="daftarPasien.html">Daftar Pasien</a></li>
-                                <li><a href="cariNama.html">Cari Pasien</a></li>                           
+                                <li><a class="active" href="cariNama.html">Cari Nama Pasien</a></li> 
+                                <li><a href="detilPasien.html">Daftar Pasien</a></li>                        
                             </ul>
                         </li> 
                         <div class="contact-form">
                             <center><table>
-                                    <tr><td>Masukkan Nama Pasien</td> <td>:</td> <td><input type="text" onchange="loadDoc()" id="nama"/> <button type="button" onclick="loadDoc()" id="btn">Cari</button></td></tr>
+                                    <tr><td>Nama Pasien</td> <td>:</td> <td><input type="text" id="nik"/> <button type="button" onclick="loadDoc()" id="btn">Cari</button></td></tr>
                                 </table></center>
 
-                            <br/><br/><br/><center><h3>Data Hasil Pencarian</h3></center><br/>
-                            <center><table>
-                                    <tr><td>NIK</td> <td>:</td> <td><input type="text" id="nik" value="" disabled=""/></td>
-                                    <tr><td>Nama</td> <td>:</td> <td><input type="text" id="nama" value="" disabled=""/></td>
-                                    <tr><td>Tanggal Lahir</td> <td>:</td> <td><input type="text" id="tanggalLahir" value="" disabled=""/></td></tr>
-
-
-                                </table></center>
-                            <center><button type="button" onclick="loadDoc()" id="btn">Detail Pasien</button></center>    
+                            <br/><br/><br/><center><h3>Data Hasil Pencarian</h3></center><br/>                            
+                            <center><button type="button" id="btn">Detail Pasien</button></center>    
                             <br>
+                            <div id="id01"></div>
                             <script>
                                 function loadDoc() {
-                                    var url = "http://206.189.38.188:8080/myrs/webresources/pasien/cariNamaPasien?nama=" + nama.value;
-                                    //var url = "http://202.94.83.190:8080/servicesRS165314065/webresources/pasien/cariPasien?noRm=" + noRm.value;
-                                    var xhttp = new XMLHttpRequest();
-                                    xhttp.open("GET", url, true);
-                                    xhttp.send();
-                                    xhttp.onreadystatechange = function () {
+                                    var xmlhttp = new XMLHttpRequest();
+
+                                    var url = "http://206.189.38.188:8080/myrs/webresources/pasien/cariNamaPasien?nama=" + nik.value;
+                                    xmlhttp.onreadystatechange = function () {
                                         if (this.readyState == 4 && this.status == 200) {
-                                            var objj = JSON.parse(this.responseText);
-                                            document.getElementById("nama").value = objj.nama;
-                                            document.getElementById("nik").value = objj.nik;
-                                            document.getElementById("alamat").value = objj.alamat;
-                                            document.getElementById("tanggalLahir").value = objj.tanggalLahir;
-                                            document.getElementById("kelamin").value = objj.kelamin;
+                                            myFunction(this.responseText);
                                         }
-                                    };
+                                    }
+                                    xmlhttp.open("GET", url, true);
+                                    xmlhttp.send();
+                                    function myFunction(response) {
+                                        var arr = JSON.parse(response);
+                                        var i;
+                                        var out = "<table><tr><th>NIK</th><th>NAMA</th><th>TANGGAL LAHIR</th><th>DETAIL</th></tr>";
+
+                                        for (i = 0; i < arr.length; i++) {
+                                            out += "<tr><td>" +
+                                                    arr[i].noRm +
+                                                    "</td><td>" +
+                                                    arr[i].nama +
+                                                    "</td><td>" +
+                                                    arr[i].tanggalLahir +
+                                                    "</td><td>" +
+                                                    "detail";
+
+                                        }
+                                        out += "</table>";
+                                        document.getElementById("id01").innerHTML = out;
+                                    }
                                 }
                             </script>
                         </div>
